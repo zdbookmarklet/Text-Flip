@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         Zeta Text Flip (iframe edition)
 // @namespace    https://github.com/zdbookmarklet/Text-Flip
-// @version      1.1.0
+// @version      1.1.1
 // @description  Original Text Flip UI and transforms inside the Zeta chat iframe, with cross-origin settings migration.
 // @match        https://zeta-ai.io/*
 // @match        https://frame.pingpong.ai/*
@@ -10,7 +10,6 @@
 // @grant        GM_getValue
 // @grant        GM_setValue
 // @grant        GM_addValueChangeListener
-// @grant        GM_registerMenuCommand
 // ==/UserScript==
 
 (() => {
@@ -36,10 +35,6 @@ if(!isFrame){
  syncRoom();
  const roomTimer=setInterval(syncRoom,1200);
  addEventListener('pagehide',()=>clearInterval(roomTimer),{once:true});
- try{GM_registerMenuCommand('Text Flip: 기존 설정 다시 가져오기',()=>{
-  for(const key of [SETTINGS,CHAR,POS]){try{const value=localStorage.getItem(key);if(value!==null)GM_setValue('ztf:data:'+key,value);}catch{}}
-  alert('기존 북마클릿 설정을 다시 가져왔습니다. 제타 채팅방을 새로고침해 주세요.');
- });}catch{}
  return;
 }
 let launched=false;
